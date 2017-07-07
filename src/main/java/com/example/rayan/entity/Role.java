@@ -1,4 +1,4 @@
-package com.example.rayan;
+package com.example.rayan.entity;
 
 import javax.persistence.*;
 

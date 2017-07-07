@@ -1,5 +1,6 @@
-package com.example.rayan;
+package com.example.rayan.repository;
 
+import com.example.rayan.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,7 @@
 package com.example.rayan;
 
+import com.example.rayan.entity.Doctor;
+import com.example.rayan.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -38,6 +40,26 @@ public class RayanApplication {
 
 	@Bean(name = "passwordEncoder")
 	public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
+
+
+//	@Autowired
+//	PasswordEncoder passwordEncoder;
+//
+//	@Bean
+//	CommandLineRunner init(final DoctorRepository doctorRepository) {
+//
+//		return new CommandLineRunner() {
+//
+//			@Override
+//			public void run(String... arg0) throws Exception {
+//
+//				doctorRepository.save(
+//						new Doctor(1L, "nabeel.amd93@gmail.com", "nabeel", passwordEncoder.encode("ballistic"), "Nabeel", "Ahmed", true, null, null));
+//			}
+//
+//		};
+//
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(RayanApplication.class, args);

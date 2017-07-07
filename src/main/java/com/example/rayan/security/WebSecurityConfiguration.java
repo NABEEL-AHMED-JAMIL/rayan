@@ -1,7 +1,10 @@
-package com.example.rayan;
+package com.example.rayan.security;
 
+import com.example.rayan.entity.Doctor;
+import com.example.rayan.entity.Role;
+import com.example.rayan.repository.DoctorRepository;
+import com.example.rayan.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +24,7 @@ import java.util.Set;
 class WebSecurityConfiguration  implements UserDetailsService {
 
 	@Autowired
-	AccountRepository accountRepository;
+	DoctorRepository accountRepository;
 	@Autowired
 	RoleRepository roleRepository;
 
@@ -29,15 +32,14 @@ class WebSecurityConfiguration  implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		System.out.println("----------------------------------------");
 		System.out.println("-------"+username+"---------------------");
-		Account account = accountRepository.findByUsername(username);
+		Doctor account = accountRepository.findByUsername(username);
 		// getting the role
 
 		System.out.println(account.toString());
-		System.out.println(account.getId()+"--------"+account.getPassword()+"------"+account.getUsername()+"----------"+account.getRoles());
 		System.out.println("------------------End------------------");
 
 		if(account != null) {
-			System.out.println("------------------Account not null------------------");
+			System.out.println("------------------Doctor not null------------------");
 			return new UserDetails()  {
 
 				@Override
