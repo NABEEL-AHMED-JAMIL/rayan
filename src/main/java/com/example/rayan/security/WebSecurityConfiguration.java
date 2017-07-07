@@ -34,7 +34,6 @@ class WebSecurityConfiguration  implements UserDetailsService {
 		System.out.println("-------"+username+"---------------------");
 		Doctor account = accountRepository.findByUsername(username);
 		// getting the role
-
 		System.out.println(account.toString());
 		System.out.println("------------------End------------------");
 
@@ -42,42 +41,42 @@ class WebSecurityConfiguration  implements UserDetailsService {
 			System.out.println("------------------Doctor not null------------------");
 			return new UserDetails()  {
 
-				@Override
-				public boolean isEnabled() {
-					System.out.println("------------------Enable is true------------------");
-					return account.getEnable();
-				}
-
-				@Override
-				public boolean isCredentialsNonExpired() {
-					System.out.println("------------------CredentialsNonExpired is true------------------");
-					return true;
-				}
-
+				// ---1
 				@Override
 				public boolean isAccountNonLocked() {
 					System.out.println("------------------AccountNonLocked is true------------------");
 					return true;
 				}
 
+				// -----2
+				@Override
+				public boolean isEnabled() {
+					System.out.println("------------------Enable is true------------------");
+					return account.getEnable();
+				}
+
+				// ------3
 				@Override
 				public boolean isAccountNonExpired() {
 					System.out.println("------------------AccountNonExpired is true------------------");
 					return true;
 				}
 
-				@Override
-				public String getUsername() {
-					System.out.println("------------------Username is getting------------------");
-					return account.getUsername();
-				}
-
+				// ------4
 				@Override
 				public String getPassword() {
 					System.out.println("------------------PassWord is getting------------------");
 					return account.getPassword();
 				}
 
+				// ------5
+				@Override
+				public boolean isCredentialsNonExpired() {
+					System.out.println("------------------CredentialsNonExpired is true------------------");
+					return true;
+				}
+
+				// ------6
 				@Override
 				public Collection<? extends GrantedAuthority> getAuthorities() {
 					System.out.println("------------------InSide the Authorities------------------");
@@ -92,6 +91,11 @@ class WebSecurityConfiguration  implements UserDetailsService {
 					}
 					return new ArrayList<GrantedAuthority>(auths);
 
+				}
+
+				@Override
+				public String getUsername() {
+					return account.getUsername();
 				}
 			};
 

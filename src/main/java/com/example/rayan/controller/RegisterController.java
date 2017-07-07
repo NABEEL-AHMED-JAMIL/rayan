@@ -26,7 +26,7 @@ public class RegisterController {
     @RequestMapping(value="/register",  method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Doctor> registerUser(@RequestBody Doctor doctor ) {
-		
+        System.out.print("Register---------------User---------New->");
 		// object k under
         Doctor doctor1 = doctorRepository.findByUsername(doctor.getUsername());
 

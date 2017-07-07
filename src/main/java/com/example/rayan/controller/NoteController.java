@@ -36,7 +36,7 @@ public class NoteController {
     @RequestMapping(value="/addNote/{patientId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Patient> newNote(@PathVariable Long patientId, @RequestBody Note note)  {
-
+        System.out.print("Patient-----------------New Note--------- added->");
         Patient currentPatient = patientRepository.findOne(patientId);
         noteRepository.save(note);
         currentPatient.getNotes().add(note);
@@ -50,10 +50,13 @@ public class NoteController {
     @PreAuthorize("hasRole('ADMIN')")
     ResponseEntity<List<Note>> getAllNotes() {
 
+        System.out.print("Note-----------------list---------Getting->");
         List<Note> notes_list = noteRepository.findAll();
         if(notes_list.isEmpty()){
+            System.out.print("Note-----------------list---------Empty->");
             return new ResponseEntity<List<Note>>(notes_list,HttpStatus.NO_CONTENT);
         }
+        System.out.print("Note-----------------list---------"+notes_list.toString()+"->");
         return new ResponseEntity<List<Note>>(notes_list,HttpStatus.OK);
     }
 
@@ -61,6 +64,7 @@ public class NoteController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Note> deleteNote(@PathVariable("id") Long id) {
 
+        System.out.print("Note-----------------Delete--------->");
         Note note = this.noteRepository.findOne(id);
         this.noteRepository.delete(note);
         return new ResponseEntity<Note>(note,HttpStatus.OK);
@@ -70,6 +74,7 @@ public class NoteController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Note> updateNote(@PathVariable("id") Long id,@RequestBody Note note) {
 
+        System.out.print("Note-----------------Update---------->");
         Note currentNote = this.noteRepository.findOne(id);
         currentNote.setNoteDate(note.getNoteDate());
         currentNote.setDoctorType(note.getDoctorType());

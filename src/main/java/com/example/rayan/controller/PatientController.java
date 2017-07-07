@@ -34,6 +34,7 @@ public class PatientController {
     @RequestMapping(value="/addPatient",  method = RequestMethod.POST)
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Patient> newPatient(@RequestBody Patient patient ) {
+        System.out.print("Patient----------Create------------->");
         this.patientRepository.save(patient);
         return new ResponseEntity<Patient>(patient, HttpStatus.OK);
 
@@ -41,6 +42,7 @@ public class PatientController {
 
     @RequestMapping(value="/getAllPatient", method = RequestMethod.GET)
     public ResponseEntity<List<Patient>> getAllPatients() {
+        System.out.print("Patients-----------------list---------Getting->");
         List<Patient> patientList = patientRepository.findAll();
 
         return new ResponseEntity<List<Patient>>(patientList,HttpStatus.OK);
@@ -49,12 +51,12 @@ public class PatientController {
 
     @RequestMapping(value = "notes/{mrNo}",method = RequestMethod.GET)
     public ResponseEntity<List<Object>> getAllPatientNote(@PathVariable("mrNo") Long mrNo) {
-
+        System.out.print("Getting-----------------list---------PatientNote->");
          Patient patient = patientRepository.findOne(mrNo);
          List<Note> noteList = patient.getNotes();
          List<Object> temp = new  ArrayList<Object>();
          if(noteList != null){
-
+             System.out.print("USing the Hash---->Map for send the data");
              for (Note note: noteList) {
                  Map notesMap = new HashMap();
                  notesMap.put("patientMrNo" , patient.getMrNo());
@@ -75,7 +77,7 @@ public class PatientController {
 
     @RequestMapping(value = "/{mrNo}",method = RequestMethod.GET)
     public ResponseEntity<Patient> getPatient(@PathVariable("mrNo") Long mrNo) {
-
+        System.out.print("Patient--------------Getting---------->");
         Patient patient = patientRepository.findOne(mrNo);
         return new ResponseEntity<Patient>(patient,HttpStatus.OK);
     }
@@ -84,7 +86,7 @@ public class PatientController {
     @RequestMapping(value = "/{mrNo}",method = RequestMethod.DELETE)
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Patient> deletePatient(@PathVariable("mrNo") Long mrNo) {
-
+        System.out.print("Delete-----------------Patient--------->");
         Patient patient = this.patientRepository.findOne(mrNo);
         if(patient == null){
             return new ResponseEntity<Patient>(patient,HttpStatus.OK);
@@ -101,6 +103,7 @@ public class PatientController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Patient> updatePatient(@PathVariable("mrNo") long mrNo, @RequestBody Patient patient) {
 
+        System.out.print("Update----------------Patient--------->");
         Patient temp = this.patientRepository.findOne(mrNo);
         if(temp == null){
             return new ResponseEntity("Unable to upate. User with id " + mrNo + " not found.", HttpStatus.NOT_FOUND);
